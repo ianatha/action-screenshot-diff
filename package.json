@@ -1,6 +1,6 @@
 {
   "name": "action-screenshot-diff",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "GitHub Action to diff images",
   "main": "lib/main.js",
