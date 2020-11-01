@@ -36,6 +36,7 @@ function handleError(error: Error) {
 // console.log(JSON.stringify(GITHUB_EVENT, null, 2));
 
 async function run(): Promise<void> {
+  const inputWorkflowId: string = core.getInput('workflow-id');
   const resultsRootPath: string = core.getInput('results-path');
   const baseBranch = core.getInput('base-branch');
   const artifactName = core.getInput('artifact-name');
@@ -99,6 +100,8 @@ async function run(): Promise<void> {
 
     core.debug(`Merge base SHA is: ${mergeBaseSha}`);
 
+    const workflowId = inputWorkflowId || `${GITHUB_WORKFLOW}.yml`;
+
     const [
       didDownloadLatest,
       didDownloadMergeBase,
@@ -106,7 +109,7 @@ async function run(): Promise<void> {
       owner,
       repo,
       branch: baseBranch,
-      workflow_id: `${GITHUB_WORKFLOW}.yml`,
+      workflow_id: workflowId,
       artifactName,
       basePath,
       mergeBasePath,
