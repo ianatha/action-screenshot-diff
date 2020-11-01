@@ -50,6 +50,8 @@ async function run(): Promise<void> {
   const headSha = GITHUB_EVENT.pull_request?.head.sha;
   const headRef = GITHUB_EVENT.pull_request?.head.ref;
 
+  console.log('hello from action'); // eslint-disable-line no-console
+
   core.debug(`resultsPath: ${resultsPath}`);
   core.debug(GITHUB_WORKSPACE);
 
