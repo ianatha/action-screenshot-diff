@@ -38,8 +38,7 @@ export async function finishBuild({token, ...body}: Params) {
   const unchanged = baseFilesLength - (changed.length + missing.length);
 
   const totalChanged = changed.length + missing.length;
-  const conclusion =
-    totalChanged > 0 ? 'action_required' : added.length ? 'neutral' : 'success';
+  const conclusion = 'neutral';
 
   const title =
     totalChanged > 0
