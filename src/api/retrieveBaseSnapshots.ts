@@ -63,7 +63,7 @@ export async function retrieveBaseSnapshots(
     {
       onRetry: err => {
         console.log(workflowRun); // eslint-disable-line no-console
-        console.error(err); // eslint-disable-line no-console
+        console.log(err); // eslint-disable-line no-console
       },
     }
   );
@@ -92,7 +92,7 @@ export async function retrieveBaseSnapshots(
         {
           onRetry: err => {
             console.log(workflowRun); // eslint-disable-line no-console
-            console.error(err); // eslint-disable-line
+            console.log(err); // eslint-disable-line
           },
         }
       );
