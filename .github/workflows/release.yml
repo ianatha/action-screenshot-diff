@@ -9,10 +9,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-      SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
     steps:
     - uses: actions/checkout@v2
@@ -23,22 +19,15 @@ jobs:
       run: |
         echo "::add-path::$(yarn global bin)"
         yarn install --frozen-lockfile
-        yarn global add @sentry/cli
-
-    - name: Get version
-      id: get-version
-      run: echo "::set-output name=version::$(sentry-cli releases propose-version)"
 
     - run: yarn lint
 
     - run: yarn test
 
     - name: build
-      env:
-        SENTRY_VERSION: ${{ steps.get-version.outputs.version }}
       run: |
         yarn dist
-        git config user.email "github-actions-bot@sentry.io"
+        git config user.email "github-actions-bot@atha.io"
         git config user.name "github-actions[bot]"
         git add dist/index.js
         git add dist/sourcemap-register.js

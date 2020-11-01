@@ -3,8 +3,6 @@ import path from 'path';
 import * as core from '@actions/core';
 import * as glob from '@actions/glob';
 import * as github from '@actions/github';
-import * as Sentry from '@sentry/node';
-import {RewriteFrames} from '@sentry/integrations';
 
 import {generateImageGallery} from './util/generateImageGallery';
 import {saveSnapshots} from './util/saveSnapshots';
@@ -16,7 +14,6 @@ import {retrieveBaseSnapshots} from './api/retrieveBaseSnapshots';
 import {startBuild} from './api/startBuild';
 import {finishBuild} from './api/finishBuild';
 import {failBuild} from './api/failBuild';
-import {SENTRY_DSN} from './config';
 import {Await} from './types';
 import {getPixelmatchOptions} from './getPixelmatchOptions';
 
@@ -26,36 +23,11 @@ const octokit = token && github.getOctokit(token);
 const {GITHUB_EVENT_PATH, GITHUB_WORKSPACE, GITHUB_WORKFLOW} = process.env;
 const pngGlob = '/**/*.png';
 
-Sentry.init({
-  dsn: SENTRY_DSN,
-  integrations: [new RewriteFrames({root: __dirname || process.cwd()})],
-  release: process.env.VERSION,
-});
-
-Sentry.setContext('actionEnvironment', {
-  repo: process.env.GITHUB_REPOSITORY,
-  ref: process.env.GITHUB_REF,
-  head_ref: process.env.GITHUB_HEAD_REF,
-});
-
-const originalCoreDebug = core.debug;
-
-// @ts-ignore
-core.debug = (message: string) => {
-  Sentry.addBreadcrumb({
-    category: 'console',
-    message,
-    level: Sentry.Severity.Debug,
-  });
-  originalCoreDebug(message);
-};
-
 // console.log(JSON.stringify(process.env, null, 2));
 
 const GITHUB_EVENT = require(GITHUB_EVENT_PATH);
 
 function handleError(error: Error) {
-  Sentry.captureException(error);
   core.setFailed(error.message);
 }
 

@@ -1,7 +1,6 @@
 import {promises as fs} from 'fs';
 import path from 'path';
 import {PNG} from 'pngjs';
-import * as Sentry from '@sentry/node';
 
 import {PixelmatchOptions} from '@app/types';
 
@@ -72,7 +71,7 @@ export async function multiCompare({
     }
   } catch (err) {
     // Can't 3-way compare
-    Sentry.captureException(err);
+    console.error(err);
   }
 
   const {result, diff} = await getDiff(

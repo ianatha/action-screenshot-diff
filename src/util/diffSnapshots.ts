@@ -3,7 +3,6 @@ import path from 'path';
 import * as core from '@actions/core';
 import * as glob from '@actions/glob';
 import * as io from '@actions/io';
-import * as Sentry from '@sentry/node';
 
 import {PixelmatchOptions} from '@app/types';
 
@@ -121,7 +120,7 @@ export async function diffSnapshots({
       try {
         await io.mkdirP(path.resolve(base, childPath));
       } catch (err) {
-        Sentry.captureException(new Error(err.message));
+        core.error(new Error(err.message));
       }
     }
   }
