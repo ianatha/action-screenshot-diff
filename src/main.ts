@@ -28,6 +28,8 @@ const pngGlob = '/**/*.png';
 const GITHUB_EVENT = require(GITHUB_EVENT_PATH);
 
 function handleError(error: Error) {
+  console.log('handle error', error); // eslint-disable-line no-console
+
   core.setFailed(error.message);
 }
 
