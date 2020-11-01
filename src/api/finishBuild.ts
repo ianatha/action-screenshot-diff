@@ -1,6 +1,4 @@
-import bent from 'bent';
 import * as github from '@actions/github';
-import {API_ENDPOINT} from '@app/config';
 
 type Octokit = ReturnType<typeof github.getOctokit>;
 
@@ -10,7 +8,6 @@ type Params = {
   owner: string;
   repo: string;
   headSha: string;
-  token: string;
   images: {
     alt: string;
     image_url: string;
@@ -24,15 +21,7 @@ type Params = {
   galleryUrl?: string;
 };
 
-export async function finishBuild({token, ...body}: Params) {
-  if (token) {
-    const put = bent(API_ENDPOINT, 'PUT', 'json', 200);
-
-    return await put('/build', body, {
-      'x-padding-token': token,
-    });
-  }
-
+export async function finishBuild({...body}: Params) {
   const {owner, repo, galleryUrl, id, images, results, octokit} = body;
   const {baseFilesLength, changed, missing, added} = results;
   const unchanged = baseFilesLength - (changed.length + missing.length);

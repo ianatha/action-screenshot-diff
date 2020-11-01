@@ -42,7 +42,6 @@ async function run(): Promise<void> {
   const artifactName = core.getInput('artifact-name');
   const gcsBucket = core.getInput('gcs-bucket');
   const shouldSaveOnly = core.getInput('save-only');
-  const apiToken = core.getInput('api-token');
   const actionName = core.getInput('action-name');
   const snapshotPath: string = core.getInput('snapshot-path');
 
@@ -89,7 +88,6 @@ async function run(): Promise<void> {
     octokit,
     owner,
     repo,
-    token: apiToken,
     headSha,
     headRef,
     name: actionName,
@@ -228,7 +226,6 @@ async function run(): Promise<void> {
         id: buildId,
         owner,
         repo,
-        token: apiToken,
         galleryUrl,
         images: resultsArtifactUrls,
         headSha,
@@ -243,7 +240,6 @@ async function run(): Promise<void> {
       owner,
       repo,
       headSha,
-      token: apiToken,
     });
   }
 }
