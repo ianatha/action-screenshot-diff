@@ -1,5 +1,5 @@
 {
-  "name": "action-visual-snapshot",
+  "name": "action-screenshot-diff",
   "version": "0.0.1",
   "private": true,
   "description": "GitHub Action to diff images",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/getsentry/action-visual-snapshot.git"
+    "url": "git+https://github.com/ianatha/action-visual-snapshot.git"
   },
   "keywords": [
     "actions",

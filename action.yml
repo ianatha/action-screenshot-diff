@@ -1,4 +1,4 @@
-name: 'action-visual-snapshot'
+name: 'action-screenshot-diff'
 description: 'Visual snapshot tester for GitHub Actions'
 author: 'Sentry'
 inputs:
